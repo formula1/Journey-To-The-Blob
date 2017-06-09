@@ -1,0 +1,33 @@
+{
+  "env": {},
+  "plugins": ["react"],
+  "extends": [
+    "eslint:recommended"
+  ],
+  "globals": {
+    "console": true,
+    "require": true,
+    "Set": true,
+    "Map": true,
+    "setTimeout": true,
+    "clearTimeout": true,
+    "setImmediate": true,
+    "__dirname": true,
+    "global": true,
+    "self": true,
+    "module": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 5,
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module",
+    "impliedStrict": true
+  },
+  "rules": {
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "no-console": 0
+  }
+}

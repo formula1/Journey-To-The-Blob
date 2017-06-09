@@ -1,0 +1,16 @@
+{
+  "name": "verlet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "jscs": "^3.0.7",
+    "eslint-plugin-react": "^6.10.3"
+  }
+}

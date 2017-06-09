@@ -1,0 +1,230 @@
+
+we are looking for t where
+(
+  (posxa + velxa * t)^2 + (posya + velya * t)^2 - ra^2
+)
+-
+(
+  (posxb + velxb * t)^2 + (posyb + velyb * t)^2 - rb^2
+)
+= 0
+
+(
+  ( posax^2 + 2 * posax * velax * t + (velax * t) ^ 2 )
+  +
+  ( posay^2 + 2 * posay * velay * t + (velay * t) ^ 2 )
+  -
+  ra^2
+)
+-
+(
+  ( posbx^2 + 2 * posbx * velbx * t + (velbx * t) ^ 2 )
+  +
+  ( posby^2 + 2 * posby * velby * t + (velby * t) ^ 2 )
+  -
+  rb^2
+)
+= 0
+
+(
+  + posax ^ 2
+  + posay ^ 2
+  - ra^2
+  - posbx ^ 2
+  - posby ^ 2
+  + rb^2
+)
++ 2 * t * (
+  + posax * velax
+  + posay * velay
+  - posbx * velbx
+  - posby * velby
+)
++ t^2 * (
+  + velax ^ 2
+  + velay ^ 2
+  - velbx ^ 2
+  - velby ^ 2
+);
+
+
+*/
+/*
+  circle is defined as
+  x^2 + y^2 = r^2
+  (x-posx)^2 + (y-posy)^2 = r^2
+  (x-(posx + velx * t))^2 + (y-(posy + vely * t)^2 = r^2
+*/
+/*
+  Detecting collision
+  (x-(posx + velx * t))^2 + (y-(posy + vely * t)^2 - r^2
+  =
+  (x-(posx + velx * t))^2 + (y-(posy + vely * t)^2 - r^2
+
+  uxa = (posax + velax * t);
+  uya = (posay + velay * t);
+  uxa = (posbx + velbx * t);
+  uya = (posby + velby * t);
+
+  (x-uxa)^2 + (y-uya)^2 - (x-uxb)^2 - (y-uyb)^2
+  =
+  ra^2 - rb^2
+
+  x^2 - 2*x*uxa + uxa^2
+  + y^2 - 2*y*uya + uya^2
+  - x^2 + 2*x*uxb - uxb^2
+  - y^2 + 2*y*uyb - uyb^2
+  =
+  ra^2 - rb^2
+
+  x^2 - 2*x*uxa
+  + y^2 - 2*y*uya
+  - x^2 + 2*x*uxb
+  - y^2 + 2*y*uyb
+  =
+  ra^2 - rb^2 - uxa^2 - uya^2 + uxb^2 + uyb^2
+
+  - 2*x*uxa
+  - 2*y*uya
+  + 2*x*uxb
+  + 2*y*uyb
+  =
+  ra^2 - rb^2 - uxa^2 - uya^2 + uxb^2 + uyb^2
+
+  x(uxb - uxa) + y(uyb - uya)
+  =
+  (ra^2 - rb^2 - uxa^2 - uya^2 + uxb^2 + uyb^2)/2
+
+  rdiff = ra^2 - rb^2
+  uxa = (posax + velax * t);
+  uya = (posay + velay * t);
+  uxa = (posbx + velbx * t);
+  uya = (posby + velby * t);
+
+  x((posax + velax * t) - (posbx + velbx * t))
+  + y((posay + velay * t) - (posby + velby * t))
+  =
+  (
+    rdiff
+    - (posax + velax * t)^2
+    - (posay + velay * t)^2
+    + (posbx + velbx * t)^2
+    + (posby + velby * t)^2
+  )/2
+
+  x((posax - posbx + (velax - velbx) * t))
+  + y((posay - posby + (velay - velby) * t))
+  =
+  (
+    rdiff
+    - ( posax^2 + 2 * posax * velax * 2 + (velax * t) ^ 2 )
+    - ( posay^2 + 2 * posay * velay * 2 + (velay * t) ^ 2 )
+    + ( posbx^2 + 2 * posbx * velbx * 2 + (velbx * t) ^ 2 )
+    + ( posby^2 + 2 * posby * velby * 2 + (velby * t) ^ 2 )
+  )/2
+
+
+
+  x((posax - posbx + (velax - velbx) * t))
+  + y((posay - posby + (velay - velby) * t))
+  =
+  (
+    rdiff
+    - ( posax^2 + 2 * posax * velax * t + (velax * t) ^ 2 )
+    - ( posay^2 + 2 * posay * velay * t + (velay * t) ^ 2 )
+    + ( posbx^2 + 2 * posbx * velbx * t + (velbx * t) ^ 2 )
+    + ( posby^2 + 2 * posby * velby * t + (velby * t) ^ 2 )
+  )/2
+
+
+  x((posax - posbx + (velax - velbx) * t))
+  + y((posay - posby + (velay - velby) * t))
+  =
+  (
+    (rdiff - posax^2 - posay^2 + posbx^2 + posby^2)
+    + 2 * t * (
+      - posax * velax
+      - posay * velay
+      + posbx * velbx
+      + posby * velby
+    )
+    + t^2 * (
+      - velax ^ 2
+      - velay ^ 2
+      + velbx ^ 2
+      + velby ^ 2
+    );
+  )/2
+
+
+  Big equation
+  Now we are looking for first point of intersection
+
+  meaning the distance
+    Math.sqrt(
+      ((posax + velax * t) - (posbx + velbx * t))^2
+      +
+      ((posay + velay * t) - (posby + velby * t))^2
+    )
+    === ra + rb
+
+    ((posax + velax * t) - (posbx + velbx * t))^2
+    +
+    ((posay + velay * t) - (posby + velby * t))^2
+    === ra^2 + 2 * ra * rb + rb^2
+
+    ((posax - posbx) + t * (velax - velbx))^2
+    +
+    ((posay - posby) + t * (velay - velby))^2
+    === ra^2 + 2 * ra * rb + rb^2
+
+
+    (posax - posbx) + t * (velax - velbx)
+    ===
+    Math.sqrt(
+      ra^2 + 2 * ra * rb + rb^2
+      -
+      ((posay - posby) + t * (velay - velby))^2
+    )
+
+
+    (posax - posbx)^2
+    + 2 * (posax - posbx) * t * (velax - velbx)
+    + (t * (velax - velbx)) ^ 2
+    +
+    (posay - posby)^2
+    + 2 * (posay - posby) * t * (velay - velby)
+    + (t * (velay - velby)) ^ 2
+    === ra^2 + 2 * ra * rb + rb^2
+
+    (posax ^ 2 - 2 * posax * posbx + posbx ^ 2)
+    + 2 * t * (posax - posbx) * (velax - velbx)
+    + t ^ 2 * (velax ^ 2 - 2 * velax * velbx + velbx ^ 2)
+    +
+    (posay ^ 2 - 2 * posay * posby + posby ^ 2)
+    + 2 * t * (posay - posby) * (velay - velby)
+    + t ^ 2 * (velay ^ 2 - 2 * velay * velby + velby ^ 2)
+    === ra^2 + 2 * ra * rb + rb^2
+
+  x * Math.sqrt(
+    ra^2 + 2 * ra * rb + rb^2
+    -
+    ((posay - posby) + t * (velay - velby))^2
+  )
+  + y((posay - posby + (velay - velby) * t))
+  =
+  (
+    (rdiff - posax^2 - posay^2 + posbx^2 + posby^2)
+    + 2 * t * (
+      - posax * velax
+      - posay * velay
+      + posbx * velbx
+      + posby * velby
+    )
+    + t^2 * (
+      - velax ^ 2
+      - velay ^ 2
+      + velbx ^ 2
+      + velby ^ 2
+    );
+  )/2

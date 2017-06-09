@@ -1,0 +1,10 @@
+/node_modules
+/dist/es5
+/dist/standalone.*
+/docs
+*.log
+.nyc_output
+/**/hidden
+/**/hidden.*
+.coveralls.yml
+.env
